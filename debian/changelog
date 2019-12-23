@@ -1,0 +1,5 @@
+cargo-make (0.24.2-1) bionic; urgency=medium
+
+  * Initial release.
+
+ -- Michael Aaron Murphy <michael@system76.com>  Mon, 23 Dec 2019 13:51:58 -0700

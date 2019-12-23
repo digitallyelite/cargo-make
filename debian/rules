@@ -1,0 +1,30 @@
+#!/usr/bin/make -f
+
+export VENDORED ?= 1
+CLEAN ?= 1
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+ifeq ($(CLEAN),1)
+	cargo clean
+endif
+ifeq ($(VENDORED),1)
+	if ! ischroot; then \
+		mkdir -p .cargo; \
+		cargo vendor | head -n -1 > .cargo/config; \
+		echo 'directory = "vendor"' >> .cargo/config; \
+		tar pcf vendor.tar vendor; \
+		rm -rf vendor; \
+	fi
+endif
+
+override_dh_auto_build:
+ifeq ($(VENDORED),1)
+	tar pxf vendor.tar
+endif
+	env CARGO_HOME="$$(pwd)/target/cargo" cargo build --release
+
+override_dh_auto_install:
+	dh_install target/release/cargo-make /usr/bin

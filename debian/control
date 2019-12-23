@@ -1,0 +1,19 @@
+Source: cargo-make
+Section: devel
+Priority: optional
+Maintainer: Michael Aaron Murphy <michael@system76.com>
+Build-Depends:
+  cargo (>=0.29),
+  clang,
+  debhelper-compat (= 12),
+  libssl-dev,
+  rustc (>=1.36)
+Standards-Version: 4.1.1
+Homepage: https://github.com/sagiegurari/cargo-make
+
+Package: cargo-make
+Architecture: amd64
+Depends:
+  ${misc:Depends},
+  ${shlib:Depends}
+Description: Rust task runner and build tool
